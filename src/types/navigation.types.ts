@@ -1,7 +1,7 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
 import { NavigationProp as RNNavigationProp } from "@react-navigation/native";
 import { ExtractedTicketData } from "./ticket.types";
-import { ExpenseType } from './expense.types';
+import { ExpenseType } from "./expense.types";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -9,9 +9,8 @@ export type RootStackParamList = {
   // ScanTicket: undefined;
   ExpenseHome: undefined;
   ManualExpense: { expenseType: ExpenseType };
-  ScanTicket: { returnScreen: string; expenseType: ExpenseType }; 
+  ScanTicket: { returnScreen: string; expenseType: ExpenseType };
   AddExpense: undefined;
-
 
   ReportProblem: { truckId?: string };
   ScanResult: {
@@ -19,6 +18,5 @@ export type RootStackParamList = {
     imageUri: string;
   };
 };
-
 
 export type NavigationProp = RNNavigationProp<RootStackParamList>;

@@ -126,71 +126,74 @@ sosec-mobile-app/
 ├── tsconfig.json             # Configuration TypeScript
 └── README.md                 # Documentation du projet
 
-{
-  "name": "sosecmobilefrontappsa",
-  "main": "expo-router/entry",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "test": "jest --watchAll",
-    "lint": "expo lint"
-  },
-  "jest": {
-    "preset": "jest-expo"
-  },
-  "dependencies": {
-    "@cloudinary/url-gen": "^1.21.0",
-    "@expo/vector-icons": "^14.0.2",
-    "@react-native-async-storage/async-storage": "1.23.1",
-    "@react-native-community/netinfo": "~11.3.1",
-    "@react-native-firebase/app": "^18.3.0",
-    "@react-native-firebase/auth": "^18.3.0",
-    "@react-native-firebase/firestore": "^18.3.0",
-    "@react-navigation/bottom-tabs": "^7.3.3",
-    "@react-navigation/native": "^7.0.19",
-    "@react-navigation/native-stack": "^7.3.3",
-    "@react-navigation/stack": "^7.2.3",
-    "axios": "^1.6.7",
-    "expo": "~52.0.40",
-    "expo-blur": "~14.0.3",
-    "expo-camera": "~16.0.18",
-    "expo-constants": "~17.0.8",
-    "expo-font": "~13.0.4",
-    "expo-haptics": "~14.0.1",
-    "expo-image-manipulator": "~13.0.6",
-    "expo-linking": "~7.0.5",
-    "expo-router": "~4.0.19",
-    "expo-splash-screen": "~0.29.22",
-    "expo-status-bar": "~2.0.1",
-    "expo-symbols": "~0.2.2",
-    "expo-system-ui": "~4.0.8",
-    "expo-web-browser": "~14.0.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.73.6",
-    "react-native-gesture-handler": "~2.20.2",
-    "react-native-reanimated": "~3.10.1",
-    "react-native-safe-area-context": "4.9.0",
-    "react-native-screens": "~4.4.0",
-    "react-native-vector-icons": "^10.0.3",
-    "react-native-web": "~0.19.10",
-    "react-native-webview": "13.8.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "@types/axios": "^0.14.0",
-    "@types/jest": "^29.5.12",
-    "@types/react": "~18.2.55",
-    "@types/react-native": "^0.72.8",
-    "@types/react-test-renderer": "^18.0.7",
-    "jest": "^29.7.0",
-    "jest-expo": "~52.0.6",
-    "react-test-renderer": "18.2.0",
-    "typescript": "^5.3.3"
-  },
-  "private": true
+Unable to resolve module 'src/services/ticketService.js'
+  Evaluating src/services/ticketService.js
+  Evaluating src/screens/scan/ScanTicketScreen.tsx.js
+  Evaluating src/navigation/HomeNavigator.tsx.js
+  Evaluating src/navigation/AppNavigator.tsx.js
+  Evaluating src/navigation/RootNavigator.tsx.js
+  Evaluating App.tsx.js
+  Loading App.tsx
+Error: Unable to resolve module 'module://src/services/ticketService.js'
+    at Object.eval (src/services/ticket.ervice:1)
+    at eval (src/services/ticket.ervice
+    at eval (src/services/ticket.ervice
+    at eval (<anonymous>)
+    at Object.eval (src/screens/scan/ScanTicketScreen.tsx:8)
+    at eval (src/screens/scan/ScanTicketScreen.tsx
+    at eval (src/screens/scan/ScanTicketScreen.tsx
+    at eval (<anonymous>)
+    at Object.eval (src/navigation/HomeNavigator.tsx:4)
+    at eval (src/navigation/HomeNavigator.tsx
+    at eval (src/navigation/HomeNavigator.tsx
+    at eval (<anonymous>)
+    at Object.eval (src/navigation/AppNavigator.tsx:4)
+    at eval (src/navigation/AppNavigator.tsx
+    at eval (src/navigation/AppNavigator.tsx
+    at eval (<anonymous>)
+
+
+
+Type '{ id: string; category: "ticket"; type: "ticket"; date: Date; amount: any; truck_id: any; user_id: any; imageUrl: any; syncStatus: "synced"; }[]' is not assignable to type 'HistoryItem[]'.
+  Type '{ id: string; category: "ticket"; type: "ticket"; date: Date; amount: any; truck_id: any; user_id: any; imageUrl: any; syncStatus: "synced"; }' is not assignable to type 'HistoryItem'.
+    Types of property 'type' are incompatible.
+      Type '"ticket"' is not assignable to type 'HistoryItemType'.ts(2322)
+const ticketItems: HistoryItem[]
+
+
+// src/types/history.types.ts
+export type HistoryCategory = 'ticket' | 'expense' | 'mileage';
+
+export type HistoryItemType =
+  | 'prelevement'
+  | 'decharge'
+  | 'tableau_bord'
+  | 'maintenance'
+  | 'carburant'
+  | 'peage'
+  | 'oil' 
+  | 'repair' 
+  | 'others'; 
+
+export interface HistoryItem {
+  id: string;
+  category: HistoryCategory;
+  type: HistoryItemType;
+  date: Date;
+  amount?: number;
+  mileage?: number;
+  truck_id: string;
+  user_id: string;
+  label?: string;
+  imageUrl?: string;
+  syncStatus: 'local' | 'synced';
+  verificationStatus?: 'pending' | 'verified' | 'rejected';
+}
+
+export interface HistoryFilter {
+  startDate: Date | null;
+  endDate: Date | null;
+  types: HistoryItemType[];
+  minAmount: number | null;
+  maxAmount: number | null;
 }

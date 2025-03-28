@@ -1,6 +1,6 @@
 import { useState } from "react";
 import firestore from "@react-native-firebase/firestore";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../contexts/AuthContext"; // Ajuste le chemin si nécessaire
 import { addToQueue } from "../queue/queue";
 import { extractMileage, storeExpense } from "../api/laravelService";
 import { Truck } from "../types/truck.types";
@@ -191,6 +191,57 @@ export const useFirestore = () => {
     }
   };
 
+  const addTicketRecord = async (record: {
+    truckId: string;
+    driverId: string;
+    description: string;
+    amount: number;
+    imageUri?: string;
+  }): Promise<{ success: boolean; data?: { id: string; description: string; amount: number; date: string }; message?: string }> => {
+    if (
+      !record.truckId ||
+      !record.driverId ||
+      !record.description ||
+      typeof record.amount !== "number"
+    ) {
+      return { success: false, message: "Paramètres invalides" };
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const ticketData = {
+        truckId: record.truckId,
+        driverId: record.driverId,
+        description: record.description,
+        amount: record.amount,
+        imageUri: record.imageUri || "",
+        date: new Date().toISOString(), // Date actuelle par défaut
+        createdAt: firestore.FieldValue.serverTimestamp(),
+      };
+
+      const ticketRef = await firestore()
+        .collection("tickets")
+        .add(ticketData);
+
+      return {
+        success: true,
+        data: {
+          id: ticketRef.id,
+          description: record.description,
+          amount: record.amount,
+          date: ticketData.date,
+        },
+      };
+    } catch (err) {
+      const errorMsg = "Erreur lors de l’ajout du ticket";
+      console.error(`${errorMsg}:`, err);
+      setError(errorMsg);
+      return { success: false, message: errorMsg };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const getHistoryItems = async (userId: string): Promise<HistoryItem[]> => {
     if (!userId) return [];
     setLoading(true);
@@ -201,41 +252,57 @@ export const useFirestore = () => {
         .where("driverId", "==", userId)
         .orderBy("date", "desc")
         .get();
-
+  
       const expensesSnapshot = await firestore()
         .collection("expenses")
         .where("driverId", "==", userId)
         .orderBy("date", "desc")
         .get();
-
+  
+      const ticketsSnapshot = await firestore()
+        .collection("tickets")
+        .where("driverId", "==", userId)
+        .orderBy("date", "desc")
+        .get();
+  
       const mileageItems: HistoryItem[] = mileageSnapshot.docs.map((doc) => ({
         id: doc.id,
-        category: "mileage" as const,
-        type: "tableau_bord" as const,
+        category: "mileage",
+        type: "tableau_bord",
         date: doc.data().date?.toDate() || new Date(),
         mileage: doc.data().kilometer,
-        truck_id: doc.data().truckId, 
-        user_id: doc.data().driverId, 
+        truck_id: doc.data().truckId,
+        user_id: doc.data().driverId,
         imageUrl: doc.data().imageUrl,
         syncStatus: doc.data().syncStatus || "synced",
         verificationStatus: doc.data().isVerified ? "verified" : "pending",
       }));
-
+  
       const expenseItems: HistoryItem[] = expensesSnapshot.docs.map((doc) => ({
         id: doc.id,
         category: doc.data().type === "fuel" ? "expense" : "ticket",
-        type: (doc.data().type === "fuel"
-          ? "carburant"
-          : doc.data().type) as HistoryItem["type"],
+        type: doc.data().type === "fuel" ? "carburant" : doc.data().type,
         date: doc.data().date?.toDate() || new Date(),
         amount: doc.data().amount,
-        truck_id: doc.data().truckId, 
-        user_id: doc.data().driverId, 
+        truck_id: doc.data().truckId,
+        user_id: doc.data().driverId,
         imageUrl: doc.data().receiptImageUrl,
         syncStatus: doc.data().syncStatus || "synced",
       }));
-
-      return [...mileageItems, ...expenseItems].sort(
+  
+      const ticketItems: HistoryItem[] = ticketsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        category: "ticket",
+        type: "ticket",
+        date: doc.data().date ? new Date(doc.data().date) : new Date(), // Conversion explicite en Date
+        amount: doc.data().amount,
+        truck_id: doc.data().truckId,
+        user_id: doc.data().driverId,
+        imageUrl: doc.data().imageUri,
+        syncStatus: "synced",
+      }));
+  
+      return [...mileageItems, ...expenseItems, ...ticketItems].sort(
         (a, b) => b.date.getTime() - a.date.getTime()
       );
     } catch (err) {
@@ -254,6 +321,7 @@ export const useFirestore = () => {
     updateTruckMileage,
     addMileageRecord,
     addExpenseRecord,
+    addTicketRecord, // Nouvelle méthode ajoutée
     getHistoryItems,
     loading,
     error,

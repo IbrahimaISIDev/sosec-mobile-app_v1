@@ -1,16 +1,17 @@
 // src/types/history.types.ts
-export type HistoryCategory = 'ticket' | 'expense' | 'mileage';
+export type HistoryCategory = "ticket" | "expense" | "mileage";
 
 export type HistoryItemType =
-  | 'prelevement'
-  | 'decharge'
-  | 'tableau_bord'
-  | 'maintenance'
-  | 'carburant'
-  | 'peage'
-  | 'oil' 
-  | 'repair' 
-  | 'others'; 
+  | "prelevement"
+  | "decharge"
+  | "tableau_bord"
+  | "maintenance"
+  | "carburant"
+  | "peage"
+  | "oil"
+  | "repair"
+  | "others"
+  | "ticket"; // Ajouté
 
 export interface HistoryItem {
   id: string;
@@ -23,8 +24,8 @@ export interface HistoryItem {
   user_id: string;
   label?: string;
   imageUrl?: string;
-  syncStatus: 'local' | 'synced';
-  verificationStatus?: 'pending' | 'verified' | 'rejected';
+  syncStatus: "local" | "synced";
+  verificationStatus?: "pending" | "verified" | "rejected";
 }
 
 export interface HistoryFilter {

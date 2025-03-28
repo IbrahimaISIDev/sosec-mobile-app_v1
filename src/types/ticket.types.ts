@@ -1,5 +1,4 @@
 // src/types/ticket.types.ts
-// Type pour les résultats des tickets
 export interface TicketData {
   id: string;
   type: "weight";
@@ -19,22 +18,6 @@ export interface TicketData {
   syncStatus: "local" | "synced";
 }
 
-// export interface Ticket {
-//   id: string;
-//   ticket_num: string;
-//   date_entree: string;
-//   date_sortie: string;
-//   camion_id: string;
-//   produit: string;
-//   poids_net: number;
-//   transporteur: string;
-//   chauffeur: string;
-//   commande_id?: string;
-//   fournisseur?: string;
-//   image_url?: string;
-// }
-
-// Type pour les résultats des bons de carburant
 export interface FuelData {
   id: string;
   type: "fuel";
@@ -50,7 +33,6 @@ export interface FuelData {
   syncStatus: "local" | "synced";
 }
 
-// Type pour les résultats du kilométrage
 export interface MileageData {
   id: string;
   kilometer: number;
@@ -66,11 +48,17 @@ export interface MileageData {
 export type Ticket = TicketData | FuelData | MileageData;
 
 export interface ExtractedTicketData {
+  id: string;
+  description: string;
+  date: Date;
   ticket_num: string;
   date_entree: string;
   date_sortie: string;
-  camion_id: string;
+  truckId: string;
   produit: string;
   poids_net: number;
   chauffeur: string;
+  amount: number;
+  imageUri: string;
+  userId: string;
 }

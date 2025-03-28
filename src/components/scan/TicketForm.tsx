@@ -15,6 +15,7 @@ interface TicketFormProps {
   imageUri: string;
   onEdit: (field: keyof ExtractedTicketData) => void;
   onValidate: () => void;
+  isSaving?: boolean; // Ajouté
 }
 
 const TicketForm: React.FC<TicketFormProps> = ({ 
@@ -81,10 +82,10 @@ const TicketForm: React.FC<TicketFormProps> = ({
           
           <View style={styles.formRow}>
             <Text style={styles.label}>Immatriculation :</Text>
-            <Text style={styles.value}>{ticketData.camion_id}</Text>
+            <Text style={styles.value}>{ticketData.truckId}</Text>
             <TouchableOpacity 
               style={styles.editButton}
-              onPress={() => onEdit('camion_id')}
+              onPress={() => onEdit('truckId')}
             >
               <Ionicons name="pencil" size={20} color="#0066cc" />
             </TouchableOpacity>
