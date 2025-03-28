@@ -1,0 +1,127 @@
+sosec-mobile-app/
+├── android/                    # Configuration Android native
+│   ├── app/
+│   │   ├── build.gradle       # Configuration de build Android
+│   │   └── src/
+│   │       └── main/
+│   │           ├── AndroidManifest.xml  # Permissions (caméra, stockage, réseau)
+│   │           └── res/       # Ressources Android (icônes, splash screen)
+│   └── gradle/                # Scripts Gradle
+├── ios/                       # Configuration iOS native
+│   ├── Sosec.xcworkspace      # Projet Xcode
+│   ├── Sosec/
+│   │   ├── Info.plist        # Permissions iOS (caméra, stockage, réseau)
+│   │   └── AppDelegate.m     # Initialisation native iOS
+│   └── Pods/                 # Dépendances CocoaPods
+├── src/
+│   ├── api/                  # Services d'API et intégrations externes
+│   │   ├── firebase.ts       # Configuration Firebase (Firestore)
+│   │   └── laravelService.ts # Appels API vers Laravel et Cloudinary
+│   │
+│   ├── assets/               # Ressources statiques
+│   │   ├── fonts/            # Polices personnalisées
+│   │   ├── icons/            # Icônes de l'application
+│   │   └── images/           # Images statiques (logos, fonds)
+│   │
+│   ├── components/           # Composants réutilisables
+│   │   ├── common/           # Composants génériques
+│   │   │   ├── Button.tsx    # Bouton personnalisé
+│   │   │   ├── Card.tsx      # Carte personnalisée
+│   │   │   ├── Header.tsx    # En-tête de l'application
+│   │   │   ├── Input.tsx     # Champ de saisie personnalisé
+│   │   │   └── Loading.tsx   # Indicateur de chargement
+│   │   ├── home/             # Composants spécifiques à l'accueil
+│   │   │   ├── MenuCard.tsx  # Carte de menu
+│   │   │   ├── TaskItem.tsx  # Élément de tâche
+│   │   │   └── SyncStatus.tsx# Indicateur de synchronisation
+│   │   ├── scan/             # Composants de numérisation
+│   │   │   ├── Camera.tsx    # Composant de caméra
+│   │   │   ├── ScanPreview.tsx # Aperçu de numérisation
+│   │   │   └── TicketForm.tsx  # Formulaire de ticket
+│   │   ├── expense/          # Composants de dépenses
+│   │   │   ├── ExpenseTypeCard.tsx    # Carte pour chaque type de dépense
+│   │   │   ├── InputTypeOption.tsx    # Option pour type de saisie
+│   │   │   ├── ExpenseForm.tsx        # Formulaire de saisie manuelle
+│   │   │   └── ExpenseItem.tsx        # Élément de dépense
+│   │   └── mileage/          # Composants pour le kilométrage
+│   │       ├── MileageForm.tsx        # Formulaire de kilométrage
+│   │       └── ServiceAlert.tsx       # Alerte d'entretien
+│   │
+│   ├── contexts/             # Contextes React
+│   │   ├── AuthContext.tsx   # Contexte d'authentification
+│   │   ├── OfflineContext.tsx# Contexte de gestion hors-ligne
+│   │   └── SyncContext.tsx   # Contexte de synchronisation
+│   │
+│   ├── hooks/                # Hooks personnalisés
+│   │   ├── useAuth.ts        # Hook d'authentification
+│   │   ├── useCamera.ts      # Hook pour la caméra
+│   │   ├── useFirestore.ts   # Hook pour Firestore
+│   │   ├── useLocalStorage.ts# Hook pour AsyncStorage
+│   │   └── useSync.ts        # Hook pour la synchronisation
+│   │
+│   ├── navigation/           # Configuration de la navigation
+│   │   ├── AppNavigator.tsx  # Navigateur principal
+│   │   ├── AuthNavigator.tsx # Navigateur d'authentification
+│   │   ├── HomeNavigator.tsx # Navigateur de l'accueil
+│   │   └── RootNavigator.tsx # Navigateur racine
+│   │
+│   ├── screens/              # Écrans de l'application
+│   │   ├── auth/             # Écrans d'authentification
+│   │   │   ├── LoginScreen.tsx # Écran de connexion
+│   │   │   └── PinScreen.tsx   # Écran de saisie du PIN
+│   │   ├── home/             # Écrans d'accueil
+│   │   │   └── HomeScreen.tsx  # Écran principal
+│   │   ├── scan/             # Écrans de numérisation
+│   │   │   ├── ScanTicketScreen.tsx    # Numérisation de tickets
+│   │   │   └── ScanResultScreen.tsx    # Résultats de numérisation
+│   │   ├── expense/          # Écrans de dépenses
+│   │   │   ├── ExpenseHomeScreen.tsx      # Accueil des dépenses
+│   │   │   ├── ExpenseInputTypeScreen.tsx # Choix du type de saisie
+│   │   │   ├── ManualExpenseScreen.tsx    # Saisie manuelle
+│   │   │   ├── ExpenseScreen.tsx          # Liste des dépenses
+│   │   │   └── AddExpenseScreen.tsx       # Ajout de dépense
+│   │   ├── mileage/          # Écrans de kilométrage
+│   │   │   ├── ScanMileageScreen.tsx      # Numérisation du kilométrage
+│   │   │   └── ScanMileageResultScreen.tsx# Résultats extraits
+│   │   ├── alerts/           # Écrans d'alertes
+│   │   │   └── AlertsScreen.tsx  # Liste des alertes
+│   │   ├── profile/          # Écrans de profil
+│   │   │   └── ProfileScreen.tsx # Profil utilisateur
+│   │   ├── truck/            # Écrans de gestion des camions
+│   │   │   └── TruckScreen.tsx   # Détails du camion
+│   │   └── history/          # Écrans d'historique
+│   │       └── HistoryScreen.tsx # Historique des opérations
+│   │
+│   ├── queue/                # Gestion de la synchronisation hors ligne
+│   │   └── queue.ts          # File d’attente pour mode hors ligne
+│   │
+│   ├── types/                # Types TypeScript
+│   │   ├── api.types.ts      # Types d'API
+│   │   ├── auth.types.ts     # Types d'authentification
+│   │   ├── expense.types.ts  # Types de dépenses
+│   │   ├── mileage.types.ts  # Types de kilométrage
+│   │   ├── ticket.types.ts   # Types de tickets
+│   │   ├── truck.types.ts    # Types de camion
+│   │   └── user.types.ts     # Types d'utilisateur
+│   │
+│   ├── utils/                # Fonctions utilitaires
+│   │   ├── constants.ts      # Constantes (ex. : URLs API)
+│   │   ├── dateUtils.ts      # Utilitaires de date
+│   │   ├── formatUtils.ts    # Utilitaires de formatage
+│   │   ├── imageUtils.ts     # Utilitaires d'image
+│   │   └── validationUtils.ts# Utilitaires de validation
+│   │
+│   ├── config/               # Configuration de l'application
+│   │   ├── apiConfig.ts      # Configuration des API
+│   │   ├── firebaseConfig.ts # Configuration Firebase
+│   │   └── appConfig.ts      # Configuration générale
+│   │
+│   ├── App.tsx               # Point d’entrée principal
+│   └── index.tsx             # Fichier racine
+│
+├── .gitignore                # Fichiers ignorés par Git
+├── babel.config.js           # Configuration Babel
+├── metro.config.js           # Configuration Metro
+├── package.json              # Dépendances npm
+├── tsconfig.json             # Configuration TypeScript
+└── README.md                 # Documentation du projet

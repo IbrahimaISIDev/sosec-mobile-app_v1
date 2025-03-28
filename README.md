@@ -85,4 +85,5 @@ Clone ce dépôt et installe les dépendances nécessaires avec la commande suiv
 git clone https://github.com/IbrahimaISIDev/sosec-mobile-app.git
 cd sosec-mobile-app
 npm install
+
 # sosec-mobile-app_v1
