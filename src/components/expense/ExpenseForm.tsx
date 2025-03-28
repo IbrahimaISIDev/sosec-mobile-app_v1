@@ -32,7 +32,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseType, onSubmit }) => {
 
   const handleSubmit = () => {
     if (!amount || parseFloat(amount) <= 0) {
-      // Gestion d'erreur
+      // Gestion d'erreur améliorée
+      console.warn('Veuillez saisir un montant valide');
       return;
     }
 
@@ -40,9 +41,10 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseType, onSubmit }) => {
       type: expenseType,
       date: date,
       amount: parseFloat(amount),
-      notes: notes
+      notes: notes || ''  // Valeur par défaut si notes est vide
     };
 
+    // Ajout conditionnel de la quantité
     if (quantity && parseFloat(quantity) > 0) {
       formData.quantity = parseFloat(quantity);
     }
@@ -55,14 +57,17 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseType, onSubmit }) => {
     expenseType === ExpenseType.OIL;
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView 
+      style={styles.container}
+      keyboardShouldPersistTaps="handled"  // Amélioration de l'expérience utilisateur
+    >
       <View style={styles.formRow}>
         <Text style={styles.label}>Date</Text>
         <TouchableOpacity 
           style={styles.dateInput}
           onPress={() => setShowDatePicker(true)}
         >
-          <Text>{date.toLocaleDateString()}</Text>
+          <Text>{date.toLocaleDateString('fr-FR')}</Text>
           <Ionicons name="calendar" size={20} color="#0066cc" />
         </TouchableOpacity>
       </View>
@@ -73,6 +78,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ expenseType, onSubmit }) => {
           mode="date"
           display="default"
           onChange={onDateChange}
+          locale="fr-FR"  // Support de la localisation française
         />
       )}
 
