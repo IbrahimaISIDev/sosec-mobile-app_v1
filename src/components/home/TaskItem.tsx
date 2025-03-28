@@ -18,7 +18,6 @@ const TaskItem = ({
   status,
   onPress,
 }: TaskItemProps) => {
-  // 🔥 Typage strict pour garantir des icônes valides
   const statusConfig = useMemo(
     () =>
       ({
@@ -31,11 +30,8 @@ const TaskItem = ({
 
   const { text, color } = statusConfig[status];
 
-  // Choix du bon conteneur en fonction de `onPress`
-  const Container = onPress ? TouchableOpacity : View;
-
-  return (
-    <Container style={styles.container} {...(onPress && { onPress })}>
+  const content = (
+    <>
       <View style={styles.content}>
         <View style={styles.iconContainer}>
           <Ionicons name={icon} size={24} color="#0066CC" />
@@ -46,7 +42,15 @@ const TaskItem = ({
         </View>
       </View>
       <Text style={[styles.status, { color }]}>{text}</Text>
-    </Container>
+    </>
+  );
+
+  return onPress ? (
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      {content}
+    </TouchableOpacity>
+  ) : (
+    <View style={styles.container}>{content}</View>
   );
 };
 

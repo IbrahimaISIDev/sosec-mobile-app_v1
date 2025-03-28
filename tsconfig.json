@@ -15,16 +15,3 @@
     "expo-env.d.ts"
   ]
 }
-
-
-// {
-//   "compilerOptions": {
-//     "target": "esnext",
-//     "module": "commonjs",
-//     "jsx": "react-native",
-//     "strict": true,
-//     "esModuleInterop": true,
-//     "skipLibCheck": true,
-//     "baseUrl": "src"
-//   }
-// }
