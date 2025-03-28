@@ -1,34 +1,18 @@
 import React from 'react';
+import { StatusBar } from 'expo-status-bar'; // Si tu utilises Expo, sinon retire cette ligne
 import { AuthProvider } from './contexts/AuthContext';
-import { OfflineProvider } from './contexts/OfflineContext';
 import { SyncProvider } from './contexts/SyncContext';
-import AppNavigator from './navigation/AppNavigator';
+import RootNavigator from './navigation/RootNavigator';
 
 const App = () => {
   return (
     <AuthProvider>
-      <OfflineProvider>
-        <SyncProvider>
-          <AppNavigator />
-        </SyncProvider>
-      </OfflineProvider>
+      <SyncProvider>
+        <RootNavigator />
+        <StatusBar style="auto" /> {/* Optionnel, pour Expo */}
+      </SyncProvider>
     </AuthProvider>
   );
 };
 
 export default App;
-
-
-// import React from 'react';
-// import { AuthProvider } from './contexts/AuthContext';
-// import LoginScreen from './screens/auth/LoginScreen';
-
-// const App: React.FC = () => {
-//   return (
-//     <AuthProvider>
-//       <LoginScreen />
-//     </AuthProvider>
-//   );
-// };
-
-// export default App;
