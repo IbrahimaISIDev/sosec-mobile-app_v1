@@ -82,7 +82,7 @@ npx expo install expo-image-picker expo-network expo-sqlite expo-status-bar
 ### Installation des dépendances
 Clone ce dépôt et installe les dépendances nécessaires avec la commande suivante :
 ```bash
-git clone https://github.com/IbrahimaISIDev/sosec-mobile-app.git
+git clone https://github.com/IbrahimaISIDev/sosec-mobile-app_v1.git
 cd sosec-mobile-app
 npm install
 
