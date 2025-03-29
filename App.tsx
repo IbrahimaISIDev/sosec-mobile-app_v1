@@ -6,6 +6,7 @@ import RootNavigator from "./src/navigation/RootNavigator";
 import { ActivityIndicator, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { syncQueue } from "./src/queue/queue";
+import { OfflineProvider } from "./src/contexts/OfflineContext";
 
 const SyncHandler: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { token } = useAuth();
@@ -28,12 +29,12 @@ const SyncHandler: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 const App = () => {
   return (
     <AuthProvider>
-      <SyncProvider>
-        <SyncHandler>
+      <OfflineProvider>
+        <SyncProvider>
           <RootNavigator />
           <StatusBar style="auto" />
-        </SyncHandler>
-      </SyncProvider>
+        </SyncProvider>
+      </OfflineProvider>
     </AuthProvider>
   );
 };

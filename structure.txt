@@ -15,7 +15,6 @@ sosec-mobile-app/
 │   └── Pods/                 # Dépendances CocoaPods
 ├── src/
 │   ├── api/                  # Services d'API et intégrations externes
-│   │   ├── firebase.ts       # Configuration Firebase (Firestore)
 │   │   └── laravelService.ts # Appels API vers Laravel et Cloudinary
 │   │
 │   ├── assets/               # Ressources statiques
@@ -120,80 +119,9 @@ sosec-mobile-app/
 │   └── index.tsx             # Fichier racine
 │
 ├── .gitignore                # Fichiers ignorés par Git
-├── babel.config.js           # Configuration Babel
 ├── metro.config.js           # Configuration Metro
 ├── package.json              # Dépendances npm
 ├── tsconfig.json             # Configuration TypeScript
+├── google-services.json           
+├── GoogleService-Info.plist            
 └── README.md                 # Documentation du projet
-
-Unable to resolve module 'src/services/ticketService.js'
-  Evaluating src/services/ticketService.js
-  Evaluating src/screens/scan/ScanTicketScreen.tsx.js
-  Evaluating src/navigation/HomeNavigator.tsx.js
-  Evaluating src/navigation/AppNavigator.tsx.js
-  Evaluating src/navigation/RootNavigator.tsx.js
-  Evaluating App.tsx.js
-  Loading App.tsx
-Error: Unable to resolve module 'module://src/services/ticketService.js'
-    at Object.eval (src/services/ticket.ervice:1)
-    at eval (src/services/ticket.ervice
-    at eval (src/services/ticket.ervice
-    at eval (<anonymous>)
-    at Object.eval (src/screens/scan/ScanTicketScreen.tsx:8)
-    at eval (src/screens/scan/ScanTicketScreen.tsx
-    at eval (src/screens/scan/ScanTicketScreen.tsx
-    at eval (<anonymous>)
-    at Object.eval (src/navigation/HomeNavigator.tsx:4)
-    at eval (src/navigation/HomeNavigator.tsx
-    at eval (src/navigation/HomeNavigator.tsx
-    at eval (<anonymous>)
-    at Object.eval (src/navigation/AppNavigator.tsx:4)
-    at eval (src/navigation/AppNavigator.tsx
-    at eval (src/navigation/AppNavigator.tsx
-    at eval (<anonymous>)
-
-
-
-Type '{ id: string; category: "ticket"; type: "ticket"; date: Date; amount: any; truck_id: any; user_id: any; imageUrl: any; syncStatus: "synced"; }[]' is not assignable to type 'HistoryItem[]'.
-  Type '{ id: string; category: "ticket"; type: "ticket"; date: Date; amount: any; truck_id: any; user_id: any; imageUrl: any; syncStatus: "synced"; }' is not assignable to type 'HistoryItem'.
-    Types of property 'type' are incompatible.
-      Type '"ticket"' is not assignable to type 'HistoryItemType'.ts(2322)
-const ticketItems: HistoryItem[]
-
-
-// src/types/history.types.ts
-export type HistoryCategory = 'ticket' | 'expense' | 'mileage';
-
-export type HistoryItemType =
-  | 'prelevement'
-  | 'decharge'
-  | 'tableau_bord'
-  | 'maintenance'
-  | 'carburant'
-  | 'peage'
-  | 'oil' 
-  | 'repair' 
-  | 'others'; 
-
-export interface HistoryItem {
-  id: string;
-  category: HistoryCategory;
-  type: HistoryItemType;
-  date: Date;
-  amount?: number;
-  mileage?: number;
-  truck_id: string;
-  user_id: string;
-  label?: string;
-  imageUrl?: string;
-  syncStatus: 'local' | 'synced';
-  verificationStatus?: 'pending' | 'verified' | 'rejected';
-}
-
-export interface HistoryFilter {
-  startDate: Date | null;
-  endDate: Date | null;
-  types: HistoryItemType[];
-  minAmount: number | null;
-  maxAmount: number | null;
-}
