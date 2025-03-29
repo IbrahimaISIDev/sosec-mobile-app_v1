@@ -6,8 +6,9 @@ import React, {
   ReactNode,
   useContext,
 } from "react";
-import auth from "@react-native-firebase/auth";
-import firestore from "@react-native-firebase/firestore";
+// import auth from "@react-native-firebase/auth";
+// import firestore from "@react-native-firebase/firestore";
+import { auth, firestore } from "../config/firebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { User } from "../types/user.types";
 import { Truck } from "../types/truck.types";
