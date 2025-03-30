@@ -26,15 +26,7 @@
       "package": "com.sosecmobilefrontappsa"
     },
     "plugins": [
-      [
-        "@react-native-firebase/app",
-        {
-          "androidGoogleServicesFile": "./android/app/google-services.json",
-          "iosGoogleServicesFile": "./ios/sosecmobileapp/GoogleService-Info.plist"
-        }
-      ],
-      "@react-native-firebase/auth",
-      "@react-native-firebase/firestore"
+      "./firebase-plugin.js"
     ]
   }
 }
