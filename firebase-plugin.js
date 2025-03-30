@@ -6,7 +6,7 @@ const {
     withInfoPlist,
   } = require("@expo/config-plugins");
   
-  // Fonction pour ajouter google-services au build.gradle de l’app
+  // Ajouter google-services au build.gradle de l’app
   const withFirebaseAndroid = (config) => {
     return withAppBuildGradle(config, (config) => {
       config.modResults.contents += "\napply plugin: 'com.google.gms.google-services'\n";
@@ -14,7 +14,7 @@ const {
     });
   };
   
-  // Fonction pour ajouter le classpath Google Services au build.gradle du projet
+  // Ajouter le classpath Google Services au build.gradle du projet
   const withFirebaseProjectGradle = (config) => {
     return withProjectBuildGradle(config, (config) => {
       config.modResults.contents = config.modResults.contents.replace(
@@ -26,14 +26,14 @@ const {
     });
   };
   
-  // Fonction pour ajouter GoogleServicesFile à AndroidManifest
+  // Configurer AndroidManifest (optionnel)
   const withFirebaseManifest = (config) => {
     return withAndroidManifest(config, (config) => {
       return config;
     });
   };
   
-  // Fonction pour ajouter GoogleService-Info.plist à iOS
+  // Ajouter GoogleService-Info.plist à iOS
   const withFirebaseIOS = (config) => {
     return withInfoPlist(config, (config) => {
       config.modResults.GoogleServicesFile = "GoogleService-Info.plist";
