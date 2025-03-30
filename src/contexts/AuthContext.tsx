@@ -1,14 +1,6 @@
 // src/contexts/AuthContext.tsx
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  ReactNode,
-  useContext,
-} from "react";
-// import auth from "@react-native-firebase/auth";
-// import firestore from "@react-native-firebase/firestore";
-import { auth, firestore } from "../config/firebaseConfig";
+import React, { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import { auth, firestore } from "../config/firebaseConfig"; // Import depuis firebaseConfig
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { User } from "../types/user.types";
 import { Truck } from "../types/truck.types";
@@ -82,13 +74,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             const newUser: User = {
               id: firebaseUser.uid,
               email: firebaseUser.email || "",
-              displayName:
-                userData?.displayName || firebaseUser.displayName || "",
+              displayName: userData?.displayName || firebaseUser.displayName || "",
               role: userData?.role || "driver",
               truckAssigned: userData?.truckAssigned,
               photoURL: userData?.photoURL || firebaseUser.photoURL,
-              phoneNumber:
-                userData?.phoneNumber || firebaseUser.phoneNumber || "",
+              phoneNumber: userData?.phoneNumber || firebaseUser.phoneNumber || "",
             };
 
             let newTruck: Truck | null = null;
@@ -145,10 +135,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const userCredential = await auth().signInWithEmailAndPassword(
-        email,
-        password
-      );
+      const userCredential = await auth().signInWithEmailAndPassword(email, password);
       const firebaseToken = await userCredential.user.getIdToken();
       await AsyncStorage.setItem("token", firebaseToken);
       await AsyncStorage.setItem("userId", userCredential.user.uid);
